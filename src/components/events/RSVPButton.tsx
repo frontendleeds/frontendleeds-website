@@ -140,39 +140,40 @@ export function RSVPButton({
       
       {/* Show Add to Calendar button when we have event details */}
       {eventTitle && eventDescription && eventLocation && eventStartTime && (
-        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
           {/* Show different messages based on RSVP status */}
           {rsvpStatus === "GOING" && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+            <p className="mb-3 text-sm text-gray-600 dark:text-gray-400">
               Add this event to your calendar:
             </p>
           )}
           {rsvpStatus === "MAYBE" && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+            <p className="mb-3 text-sm text-gray-600 dark:text-gray-400">
               Add this event to your calendar as tentative:
             </p>
           )}
           {rsvpStatus === "NOT_GOING" && hasAddedToCalendars && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+            <p className="mb-3 text-sm text-gray-600 dark:text-gray-400">
               Update your calendar to show you&apos;re not attending:
             </p>
           )}
           {!rsvpStatus && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+            <p className="mb-3 text-sm text-gray-600 dark:text-gray-400">
               Add this event to your calendar:
             </p>
           )}
           
           {/* Show notification if RSVP status has changed and user has calendars */}
           {hasAddedToCalendars && rsvpStatus && (
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-md mb-3">
+            <div className="p-3 mb-3 rounded-md bg-blue-50 dark:bg-blue-900/20">
               <p className="text-sm text-blue-700 dark:text-blue-300">
                 Your RSVP status has changed. Please update your calendar to reflect your new status.
               </p>
             </div>
           )}
-          
-          <AddToCalendarButton
+       
+        <div className="flex justify-center">
+        <AddToCalendarButton
             eventId={eventId}
             title={eventTitle}
             description={eventDescription}
@@ -181,6 +182,7 @@ export function RSVPButton({
             endTime={eventEndTime ? new Date(eventEndTime) : undefined}
             rsvpStatus={rsvpStatus || undefined}
           />
+          </div>
         </div>
       )}
     </div>

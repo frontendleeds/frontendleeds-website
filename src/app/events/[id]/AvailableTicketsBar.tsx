@@ -57,10 +57,14 @@ function AvailableTicketsBar({
         statusText = "tickets available";
       }
     }
-    
+
+
+    const isPast = new Date() > new Date(eventEndTime)
+
     return (
       <div className={`fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 z-50 md:hidden transition-all duration-300 ease-in-out ${isExpanded ? 'h-auto max-h-80' : 'h-auto max-h-24'}`}>
-        <div className="container p-3 mx-auto">
+         {
+          isPast ? <div className="flex items-center justify-center p-3">Event has Passed</div> :  <div className="container p-3 mx-auto">
           {/* Expandable header - always visible */}
           <div 
             className="flex items-center justify-between cursor-pointer"
@@ -124,7 +128,7 @@ function AvailableTicketsBar({
               </div>
             </div>
             
-            {/* Capacity visualization */}
+          
             {capacity && (
               <div className="mb-3">
                 <div className="flex justify-between mb-1 text-xs text-gray-500 dark:text-gray-400">
@@ -145,7 +149,7 @@ function AvailableTicketsBar({
             )}
           </div>
           
-          {/* RSVP Button - always visible */}
+        
           <div className={`transition-all duration-300 ${isExpanded ? 'mt-3' : 'mt-2'}`}>
             <Suspense fallback={<div className="h-10 bg-gray-200 rounded animate-pulse"></div>}>
               <RSVPButton
@@ -160,6 +164,7 @@ function AvailableTicketsBar({
             </Suspense>
           </div>
         </div>
+         }
       </div>
     );
   }

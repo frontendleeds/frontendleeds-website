@@ -12,6 +12,7 @@ import { RSVPStatus } from "@prisma/client";
 import ReactMarkdown from "react-markdown";
 import AvailableTicketsBar from "./AvailableTicketsBar";
 import Image from "next/image";
+import { Button } from "@/components/ui/Button";
 
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const params = await props.params;
@@ -97,6 +98,7 @@ export default async function EventPage(props: { params: Promise<{ id: string }>
     take: 10,
   });
 
+  const isPast =  new Date() > new Date(event.endTime)
   return (
     <>
       {/* Hero Banner */}
@@ -293,7 +295,14 @@ export default async function EventPage(props: { params: Promise<{ id: string }>
 
             <div>
               <div className="sticky p-4 bg-white shadow-md dark:bg-gray-800 rounded-xl sm:p-6 md:p-8 top-8">
-                <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-xl sm:mb-6 dark:text-white">RSVP to this event</h3>
+                {
+          isPast ?      <div>
+
+            Event Has Passed
+                
+               </div> : <>
+               
+               <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-xl sm:mb-6 dark:text-white">RSVP to this event</h3>
                 <Suspense fallback={<div className="h-10 bg-gray-200 rounded animate-pulse"></div>}>
                   <RSVPButton
                     eventId={event.id}
@@ -318,6 +327,10 @@ export default async function EventPage(props: { params: Promise<{ id: string }>
                     </div>
                   </div>
                 </div>
+               
+               </>
+                  
+                }
               </div>
             </div>
           </div>
@@ -341,20 +354,36 @@ export default async function EventPage(props: { params: Promise<{ id: string }>
                 ))}
               </div>
             ) : (
-              <div className="p-4 text-center rounded-lg bg-gray-50 dark:bg-gray-700 sm:p-6">
-                <p className="mb-3 text-sm text-gray-500 dark:text-gray-400 sm:mb-4 sm:text-base">No attendees yet. Be the first to RSVP!</p>
-                <Suspense fallback={<div>Loading...</div>}>
-                  <RSVPButton
-                    eventId={event.id}
-                    currentStatus={userRsvp?.status as RSVPStatus | null}
-                    eventTitle={event.title}
-                    eventDescription={event.description}
-                    eventLocation={event.location}
-                    eventStartTime={event.startTime}
-                    eventEndTime={event.endTime}
-                  />
-                </Suspense>
-              </div>
+             <>
+             {
+              isPast ? <>
+              
+              <Button
+        variant={"outline"}
+        className="w-full"
+         disabled
+      >
+        This Event is Past
+  
+      </Button>
+      
+                </>:   <div className="p-4 text-center rounded-lg bg-gray-50 dark:bg-gray-700 sm:p-6">
+               
+              <p className="mb-3 text-sm text-gray-500 dark:text-gray-400 sm:mb-4 sm:text-base">No attendees yet. Be the first to RSVP!</p>
+              <Suspense fallback={<div>Loading...</div>}>
+                <RSVPButton
+                  eventId={event.id}
+                  currentStatus={userRsvp?.status as RSVPStatus | null}
+                  eventTitle={event.title}
+                  eventDescription={event.description}
+                  eventLocation={event.location}
+                  eventStartTime={event.startTime}
+                  eventEndTime={event.endTime}
+                />
+              </Suspense>
+            </div>
+             }
+             </>
             )}
           </div>
           
