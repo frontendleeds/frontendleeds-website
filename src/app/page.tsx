@@ -40,7 +40,7 @@ export default async function HomePage() {
         },
       },
     },
-    take: 3, // Only take the first 3 upcoming events
+    take: 3, 
   });
 
   return (
@@ -58,19 +58,19 @@ export default async function HomePage() {
 
     
       {/* Stats Section */}
-      <section className="bg-white dark:bg-gray-800 py-12 shadow-md">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section className="py-12 bg-white shadow-md dark:bg-gray-800">
+        <div className="container px-4 mx-auto">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">{data.home.eventHosted}+</div>
+              <div className="mb-2 text-4xl font-bold text-blue-600 dark:text-blue-400">{data.home.eventHosted}+</div>
               <div className="text-gray-600 dark:text-gray-300">Events Hosted</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">{data.home.member}+</div>
+              <div className="mb-2 text-4xl font-bold text-blue-600 dark:text-blue-400">{data.home.member}+</div>
               <div className="text-gray-600 dark:text-gray-300">Community Members</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2"> 100%</div>
+              <div className="mb-2 text-4xl font-bold text-blue-600 dark:text-blue-400"> 100%</div>
               <div className="text-gray-600 dark:text-gray-300">Dev-Focused Content</div>
             </div>
           </div>
@@ -79,29 +79,29 @@ export default async function HomePage() {
 
       {/* Upcoming Events Section */}
       <section className="py-16 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10">
+        <div className="container px-4 mx-auto">
+          <div className="flex flex-col items-start justify-between mb-10 sm:flex-row sm:items-center">
             <div className="mb-4 sm:mb-0">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Upcoming Events</h2>
-              <p className="text-gray-600 dark:text-gray-300 mt-2">Join us at our next events and connect with the community</p>
+              <p className="mt-2 text-gray-600 dark:text-gray-300">Join us at our next events and connect with the community</p>
             </div>
-            <Link href="/events" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium inline-flex items-center">
+            <Link href="/events" className="inline-flex items-center font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
               View All <FiArrowRight className="ml-1" />
             </Link>
           </div>
 
           {upcomingEvents.length === 0 ? (
-            <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
-              <h3 className="text-xl font-semibold mb-2 dark:text-white">No upcoming events</h3>
-              <p className="text-gray-500 dark:text-gray-400 mb-6">
+            <div className="py-12 text-center bg-white rounded-lg shadow-sm dark:bg-gray-800">
+              <h3 className="mb-2 text-xl font-semibold dark:text-white">No upcoming events</h3>
+              <p className="mb-6 text-gray-500 dark:text-gray-400">
                 Check back later for new events or sign up to get notified.
               </p>
-              <Link href="/auth/signup" className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-3 rounded-md font-medium transition-colors duration-300">
+              <Link href="/auth/signup" className="px-6 py-3 font-medium text-white transition-colors duration-300 bg-blue-600 rounded-md hover:bg-blue-700">
                 Sign Up for Updates
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {upcomingEvents.map((event) => (
                 <EnhancedEventCard
                   key={event.id}
@@ -116,17 +116,17 @@ export default async function HomePage() {
 
       {/* Gallery Section */}
       <section className="py-16 bg-white dark:bg-gray-800">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+        <div className="container px-4 mx-auto">
+          <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Community Gallery</h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-2 max-w-2xl mx-auto">
+            <p className="max-w-2xl mx-auto mt-2 text-gray-600 dark:text-gray-300">
               Take a look at our previous meetups and events
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             <Link href={"/gallery"}>
-            <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div className="overflow-hidden transition-shadow duration-300 rounded-lg shadow-md hover:shadow-lg">
               <div className="relative h-64">
                 <Image 
                   src="/frontend-leeds.jpg" 
@@ -136,30 +136,30 @@ export default async function HomePage() {
                 />
               </div>
               <div className="p-4 bg-white dark:bg-gray-700">
-                <h3 className="font-semibold text-lg dark:text-white">React Workshop</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">April 2025</p>
+                <h3 className="text-lg font-semibold dark:text-white">React Workshop</h3>
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">April 2025</p>
               </div>
             </div>
             </Link>
             
             {/* Placeholder gallery items */}
-            {/* <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-gray-100 dark:bg-gray-700">
-              <div className="relative h-64 flex items-center justify-center bg-gray-200 dark:bg-gray-600">
-                <FiCalendar className="text-gray-400 dark:text-gray-300 text-5xl" />
+            {/* <div className="overflow-hidden transition-shadow duration-300 bg-gray-100 rounded-lg shadow-md hover:shadow-lg dark:bg-gray-700">
+              <div className="relative flex items-center justify-center h-64 bg-gray-200 dark:bg-gray-600">
+                <FiCalendar className="text-5xl text-gray-400 dark:text-gray-300" />
               </div>
               <div className="p-4 bg-white dark:bg-gray-700">
-                <h3 className="font-semibold text-lg dark:text-white">JavaScript Fundamentals</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">March 2025</p>
+                <h3 className="text-lg font-semibold dark:text-white">JavaScript Fundamentals</h3>
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">March 2025</p>
               </div>
             </div> */}
             
-            {/* <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-gray-100 dark:bg-gray-700">
-              <div className="relative h-64 flex items-center justify-center bg-gray-200 dark:bg-gray-600">
-                <FiUsers className="text-gray-400 dark:text-gray-300 text-5xl" />
+            {/* <div className="overflow-hidden transition-shadow duration-300 bg-gray-100 rounded-lg shadow-md hover:shadow-lg dark:bg-gray-700">
+              <div className="relative flex items-center justify-center h-64 bg-gray-200 dark:bg-gray-600">
+                <FiUsers className="text-5xl text-gray-400 dark:text-gray-300" />
               </div>
               <div className="p-4 bg-white dark:bg-gray-700">
-                <h3 className="font-semibold text-lg dark:text-white">CSS Grid Workshop</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">February 2025</p>
+                <h3 className="text-lg font-semibold dark:text-white">CSS Grid Workshop</h3>
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">February 2025</p>
               </div>
             </div> */}
 
@@ -168,17 +168,17 @@ export default async function HomePage() {
       </section>
 
       {/* Join Community Section */}
-      <section className="py-16 bg-blue-900 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Join Our Community Today</h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+      <section className="py-16 text-white bg-blue-900">
+        <div className="container px-4 mx-auto text-center">
+          <h2 className="mb-6 text-3xl font-bold">Join Our Community Today</h2>
+          <p className="max-w-2xl mx-auto mb-8 text-xl text-blue-100">
             Connect with other frontend developers in Leeds, share knowledge, and grow your skills.
           </p>
-          <div className="flex justify-center gap-4 flex-wrap">
-            <Link href="/auth/signup" className="bg-white text-blue-900 hover:bg-blue-50 px-6 py-3 rounded-md font-medium transition-colors duration-300">
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link href="/auth/signup" className="px-6 py-3 font-medium text-blue-900 transition-colors duration-300 bg-white rounded-md hover:bg-blue-50">
               Sign Up
             </Link>
-            <Link href="/events" className="bg-transparent hover:bg-blue-800 border border-white px-6 py-3 rounded-md font-medium transition-colors duration-300">
+            <Link href="/events" className="px-6 py-3 font-medium transition-colors duration-300 bg-transparent border border-white rounded-md hover:bg-blue-800">
               Explore Events
             </Link>
           </div>

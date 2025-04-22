@@ -12,34 +12,36 @@ export const metadata: Metadata = {
 };
 
 export default async function EventsPage() {
+  const now = new Date();
   // Fetch all upcoming events
-  const events = await prisma.event.findMany({
-    where: {
-      published: true,
-      startTime: {
-        gte: new Date(),
-      },
-    },
-    orderBy: {
-      startTime: "asc", // Changed to ascending to show soonest events first
-    },
-    include: {
-      creator: {
-        select: {
-          name: true,
+   const events = await prisma.event.findMany({
+      where: {
+        published: true,
+        startTime: {
+          gte: now,
         },
       },
-      _count: {
-        select: {
-          rsvps: {
-            where: {
-              status: "GOING",
+      orderBy: {
+        startTime: "desc",
+      },
+      include: {
+        creator: {
+          select: {
+            name: true,
+          },
+        },
+        _count: {
+          select: {
+            rsvps: {
+              where: {
+                status: "GOING",
+              },
             },
           },
         },
       },
-    },
-  });
+      take: 3, // Only take the first 3 upcoming events
+    });
 
   // Fetch past events
   const pastEvents = await prisma.event.findMany({
