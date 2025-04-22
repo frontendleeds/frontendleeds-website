@@ -64,8 +64,9 @@ export async function POST(req: NextRequest, props: { params: Promise<{ id: stri
       },
     });
 
+    const origin = req.headers.get("origin") || new URL(req.url).origin;
     // Redirect to the events list
-    return NextResponse.redirect(new URL("/admin/events", req.url));
+    return NextResponse.redirect(new URL("/admin/events", origin));
   } catch (error) {
     console.error("Event deletion error:", error);
     return NextResponse.json(
