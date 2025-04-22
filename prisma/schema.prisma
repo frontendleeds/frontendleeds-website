@@ -1,0 +1,179 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String?
+  email         String         @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  role          Role           @default(USER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+  events        Event[]        // Events created by this user
+  rsvps         RSVP[]         // Events this user has RSVP'd to
+  notifications Notification[] // Notifications received by this user
+  calendarTracking CalendarTracking[] // Calendar events tracked by this user
+  speakerApplications SpeakerApplication[] // Speaker applications submitted by this user
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  content     String   // Rich text content
+  location    String
+  startTime   DateTime
+  endTime     DateTime
+  imageUrl    String?
+  capacity    Int?     // Optional maximum capacity
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  published   Boolean  @default(false)
+  
+  // Relations
+  creatorId   String
+  creator     User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  rsvps       RSVP[]
+  notifications Notification[] // Notifications related to this event
+  calendarTracking CalendarTracking[] // Calendar tracking for this event
+  speakerApplications SpeakerApplication[] // Speaker applications for this event
+}
+
+model RSVP {
+  id        String   @id @default(cuid())
+  status    RSVPStatus @default(GOING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, eventId]) // A user can only RSVP once per event
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  
+  // Relations
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventId   String?
+  event     Event?   @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  
+  // Type of notification
+  type      NotificationType @default(EVENT_UPDATE)
+}
+
+model CalendarTracking {
+  id           String   @id @default(cuid())
+  calendarType String   // Type of calendar (Google, Apple, Outlook, Yahoo)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  // Relations
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventId      String
+  event        Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, eventId, calendarType]) // A user can only add an event to a specific calendar once
+}
+
+model SpeakerApplication {
+  id              String   @id @default(cuid())
+  title           String   // Proposed talk title
+  description     String   // Talk description
+  experience      String   // Speaking experience
+  bio             String   // Speaker bio
+  githubUrl       String?  // Optional GitHub URL
+  linkedinUrl     String?  // Optional LinkedIn URL
+  websiteUrl      String?  // Optional personal website URL
+  twitterUrl      String?  // Optional Twitter URL
+  additionalInfo  String?  // Any additional information
+  status          ApplicationStatus @default(PENDING)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventId         String?  // Optional - can apply for a specific event or generally
+  event           Event?   @relation(fields: [eventId], references: [id], onDelete: SetNull)
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum RSVPStatus {
+  GOING
+  NOT_GOING
+  MAYBE
+}
+
+enum NotificationType {
+  EVENT_UPDATE
+  SITE_ANNOUNCEMENT
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
