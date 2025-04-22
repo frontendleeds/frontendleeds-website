@@ -1,3 +1,4 @@
+import { hashPassword } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
       data: {
         name,
         email,
-        password, // In production, use hashedPassword
+        password:await hashPassword(password), // In production, use hashedPassword
       },
     });
 

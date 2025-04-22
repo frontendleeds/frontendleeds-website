@@ -3,6 +3,30 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "./prisma";
 import { Role } from "@prisma/client";
+import bcrypt from "bcrypt"
+
+
+const saltRounds = 10;
+
+export async function hashPassword(password) {
+  try {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function comparePassword(password, hash) {
+  try {
+    const match = await bcrypt.compare(password, hash);
+    return match;
+  } catch (err) {
+    throw err;
+  }
+
+}
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -28,9 +52,10 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // For development purposes, just check if the password matches the one in the database
-        // In production, you would use bcrypt.compare
-        const isPasswordValid = credentials.password === user.password;
+       
+        // const isPasswordValid = credentials.password === user.password;
+        const isPasswordValid =  await comparePassword(credentials.password, user.password)
+
 
         if (!isPasswordValid) {
           return null;
