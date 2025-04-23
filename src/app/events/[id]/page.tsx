@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/Button";
 
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const params = await props.params;
+
   // Fetch the event data
   const event = await prisma.event.findUnique({
     where: { id: params.id },
@@ -41,6 +42,7 @@ export default async function EventPage(props: { params: Promise<{ id: string }>
   const userId = session?.user?.id;
 
   const event = await prisma.event.findUnique({
+    
     where: {
       id: params.id,
       published: true,
@@ -271,16 +273,15 @@ export default async function EventPage(props: { params: Promise<{ id: string }>
                     <span className="dark:text-gray-300">Business cards for networking</span>
                   </li>
                 </ul>
-              </div>
-              
-              {/* Location Map */}
-              <div className="mb-6 overflow-hidden bg-white shadow-md dark:bg-gray-800 rounded-xl sm:mb-8">
+              </div>              
+                    
+              {/* <div className="mb-6 overflow-hidden bg-white shadow-md dark:bg-gray-800 rounded-xl sm:mb-8">
                 <div className="p-3 border-b border-gray-100 sm:p-4 dark:border-gray-700">
                   <h2 className="text-xl font-bold text-gray-900 sm:text-2xl dark:text-white">Event Location</h2>
                   <p className="text-sm text-gray-600 dark:text-gray-300 sm:text-base">{event.location}</p>
                 </div>
                 <div className="relative h-48 bg-gray-200 sm:h-64 dark:bg-gray-700">
-                  {/* This would be a real map in a production app */}
+                
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
                         <div className="inline-flex p-3 mb-3 bg-blue-100 rounded-full dark:bg-blue-900/30">
@@ -290,7 +291,7 @@ export default async function EventPage(props: { params: Promise<{ id: string }>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div>
@@ -313,20 +314,8 @@ export default async function EventPage(props: { params: Promise<{ id: string }>
                     eventStartTime={event.startTime}
                     eventEndTime={event.endTime}
                   />
-                </Suspense>
-                
-                <div className="pt-6 mt-6 border-t border-gray-200 sm:mt-8 sm:pt-8 dark:border-gray-700">
-                  <h4 className="mb-3 text-sm font-semibold text-gray-900 sm:mb-4 dark:text-white sm:text-base">Organized by</h4>
-                  <div className="flex items-center">
-                    <div className="flex items-center justify-center w-8 h-8 mr-2 font-bold text-blue-600 bg-blue-100 rounded-full dark:bg-blue-900/30 dark:text-blue-400 sm:h-10 sm:w-10 sm:mr-3">
-                      {event.creator.name ? event.creator.name.charAt(0).toUpperCase() : 'A'}
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium sm:text-base dark:text-white">{event.creator.name || "Anonymous"}</p>
-                      <p className="text-xs text-gray-500 sm:text-sm dark:text-gray-400">Event Organizer</p>
-                    </div>
-                  </div>
-                </div>
+                </Suspense>                
+             
                
                </>
                   

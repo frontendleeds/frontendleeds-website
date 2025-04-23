@@ -14,7 +14,7 @@ const eventSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
   description: z.string().min(10, "Description must be at least 10 characters"),
   content: z.string().min(10, "Content must be at least 10 characters"),
-  location: z.string().min(3, "Location must be at least 3 characters"),
+  location: z.string().min(3, "Location must be at least 3 characters").optional(),
   startTime: z.string().refine((val) => !isNaN(Date.parse(val)), {
     message: "Start time must be a valid date",
   }),
@@ -24,6 +24,7 @@ const eventSchema = z.object({
   imageUrl: z.string().optional(),
   capacity: z.string().optional(),
   published: z.boolean(),
+  isPast:z.boolean().optional()
 });
 
 type EventFormValues = z.infer<typeof eventSchema>;
@@ -207,11 +208,11 @@ export function EventForm({ event, isEditing = false }: EventFormProps) {
           />
         </FormField>
 
-        <div className="flex items-center space-x-2 mt-4">
+        <div className="flex items-center mt-4 space-x-2">
           <input
             type="checkbox"
             id="published"
-            className="rounded border-gray-300 dark:border-gray-700 text-blue-600 dark:text-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400"
+            className="text-blue-600 border-gray-300 rounded dark:border-gray-700 dark:text-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400"
             {...form.register("published")}
           />
           <label htmlFor="published" className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -219,9 +220,9 @@ export function EventForm({ event, isEditing = false }: EventFormProps) {
           </label>
         </div>
 
-        {error && <p className="text-sm text-red-500 mt-4">{error}</p>}
+        {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
 
-        <div className="flex justify-end space-x-4 mt-8">
+        <div className="flex justify-end mt-8 space-x-4">
           <Button
             type="button"
             variant="outline"

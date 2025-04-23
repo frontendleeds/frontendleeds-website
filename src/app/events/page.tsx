@@ -15,15 +15,18 @@ export default async function EventsPage() {
   const now = new Date();
   // Fetch all upcoming events
    const events = await prisma.event.findMany({
+    
       where: {
         published: true,
         startTime: {
           gte: now,
         },
       },
+      
       orderBy: {
         startTime: "desc",
       },
+      
       include: {
         creator: {
           select: {
@@ -40,6 +43,7 @@ export default async function EventsPage() {
           },
         },
       },
+      
       take: 3, // Only take the first 3 upcoming events
     });
 
