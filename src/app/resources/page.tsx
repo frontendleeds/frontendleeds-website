@@ -172,11 +172,11 @@ export default function ResourcesPage() {
                 
                 <div className="p-6 mt-8 rounded-lg bg-blue-50 dark:bg-blue-900/20">
                   <p className="mb-2 text-gray-700 dark:text-gray-300">
-                    Ready to share your knowledge with the Frontend Leeds community? Submit your talk proposal at:
-                  </p>
-                  <a href="mailto:speakers@frontendleeds.com" className="font-medium text-blue-600 dark:text-blue-400 hover:underline">
-                    speakers@frontendleeds.com
-                  </a>
+                    Ready to share your knowledge with the Frontend Leeds community? Submit your talk proposal 
+                    <Link className="ml-3 font-medium text-blue-600 dark:text-blue-400 hover:underline" href={"/events/speak"}>
+                    here:
+                    </Link>
+                  </p>               
                 </div>
               </div>
             </div>
