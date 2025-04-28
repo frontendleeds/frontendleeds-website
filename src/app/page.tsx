@@ -140,29 +140,8 @@ export default async function HomePage() {
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">April 2025</p>
               </div>
             </div>
-            </Link>
-            
-            {/* Placeholder gallery items */}
-            {/* <div className="overflow-hidden transition-shadow duration-300 bg-gray-100 rounded-lg shadow-md hover:shadow-lg dark:bg-gray-700">
-              <div className="relative flex items-center justify-center h-64 bg-gray-200 dark:bg-gray-600">
-                <FiCalendar className="text-5xl text-gray-400 dark:text-gray-300" />
-              </div>
-              <div className="p-4 bg-white dark:bg-gray-700">
-                <h3 className="text-lg font-semibold dark:text-white">JavaScript Fundamentals</h3>
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">March 2025</p>
-              </div>
-            </div> */}
-            
-            {/* <div className="overflow-hidden transition-shadow duration-300 bg-gray-100 rounded-lg shadow-md hover:shadow-lg dark:bg-gray-700">
-              <div className="relative flex items-center justify-center h-64 bg-gray-200 dark:bg-gray-600">
-                <FiUsers className="text-5xl text-gray-400 dark:text-gray-300" />
-              </div>
-              <div className="p-4 bg-white dark:bg-gray-700">
-                <h3 className="text-lg font-semibold dark:text-white">CSS Grid Workshop</h3>
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">February 2025</p>
-              </div>
-            </div> */}
-
+            </Link>           
+           
           </div>
         </div>
       </section>

@@ -28,32 +28,32 @@ export function Hero({
 
   return (
     <section 
-      className="relative bg-blue-900 text-white" 
+      className="relative text-white bg-blue-900" 
       style={bgStyle}
     >
       {/* Overlay gradient for better text readability */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-blue-800 opacity-90"></div>
       
       {/* Content container */}
-      <div className="relative container mx-auto px-4 py-16 sm:py-20 md:py-24 lg:py-32">
+      <div className="container relative px-4 py-16 mx-auto sm:py-20 md:py-24 lg:py-32">
         <div className="max-w-3xl">
           {/* Responsive heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
+          <h1 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl lg:text-6xl sm:mb-6">
             {title}
           </h1>
           
           {/* Responsive subtitle */}
-          <p className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-blue-100">
+          <p className="mb-6 text-lg text-blue-100 sm:text-xl md:text-2xl sm:mb-8">
             {subtitle}
           </p>
           
           {/* Responsive buttons */}
           {(primaryButtonText || secondaryButtonText) && (
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
               {primaryButtonText && primaryButtonLink && (
                 <Link 
                   href={primaryButtonLink} 
-                  className="bg-white text-blue-900 hover:bg-blue-50 dark:bg-blue-100 dark:hover:bg-white px-4 sm:px-6 py-2 sm:py-3 rounded-md font-medium transition-colors duration-300 inline-flex items-center justify-center sm:justify-start"
+                  className="inline-flex items-center justify-center px-4 py-2 font-medium text-blue-900 transition-colors duration-300 bg-white rounded-md hover:bg-blue-50 dark:bg-blue-100 dark:hover:bg-white sm:px-6 sm:py-3 sm:justify-start"
                 >
                   {primaryButtonText} {primaryButtonIcon && <span className="ml-2">{primaryButtonIcon}</span>}
                 </Link>
@@ -61,7 +61,7 @@ export function Hero({
               {secondaryButtonText && secondaryButtonLink && (
                 <Link 
                   href={secondaryButtonLink} 
-                  className="bg-transparent hover:bg-blue-800 dark:hover:bg-blue-700 border border-white px-4 sm:px-6 py-2 sm:py-3 rounded-md font-medium transition-colors duration-300 text-center sm:text-left"
+                  className="px-4 py-2 font-medium text-center transition-colors duration-300 bg-transparent border border-white rounded-md hover:bg-blue-800 dark:hover:bg-blue-700 sm:px-6 sm:py-3 sm:text-left"
                 >
                   {secondaryButtonText}
                 </Link>

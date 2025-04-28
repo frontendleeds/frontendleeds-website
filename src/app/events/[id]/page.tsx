@@ -154,9 +154,7 @@ export default async function EventPage(props: { params: Promise<{ id: string }>
               <div>
                 <h3 className="font-semibold text-gray-900 dark:text-white">Date and Time</h3>
                 <p className="text-gray-600 dark:text-gray-300">{formatDate(event.startTime)}</p>
-                {event.endTime && (
-                  <p className="text-gray-600 dark:text-gray-300">to {formatDate(event.endTime)}</p>
-                )}
+              
               </div>
             </div>
 
