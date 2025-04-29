@@ -122,30 +122,32 @@ export default function SignUpForm() {
         <FormField
           name="password"
           label="Password"
-          error={form.formState.errors.password?.message}
-        >
-          <Input
-            id="password"
-            placeholder="••••••••"
-            type="password"
-            autoComplete="new-password"
-            disabled={isLoading}
-            {...form.register("password")}
-          />
-        </FormField>
-        <FormField
+           error={form.formState.errors.password?.message}
+         >
+           <Input
+             id="password"
+             placeholder="••••••••"
+             type="password"
+             autoComplete="new-password"
+             disabled={isLoading}
+             isPassword // Add this prop to enable the toggle
+             {...form.register("password")}
+           />
+         </FormField>
+         <FormField
           name="confirmPassword"
           label="Confirm Password"
           error={form.formState.errors.confirmPassword?.message}
         >
           <Input
             id="confirmPassword"
-            placeholder="••••••••"
-            type="password"
-            autoComplete="new-password"
-            disabled={isLoading}
-            {...form.register("confirmPassword")}
-          />
+             placeholder="••••••••"
+             type="password"
+             autoComplete="new-password"
+             disabled={isLoading}
+             isPassword // Add this prop to enable the toggle
+             {...form.register("confirmPassword")}
+           />
         </FormField>
         {error && <p className="text-sm text-red-500">{error}</p>}
         <Button type="submit" className="w-full" isLoading={isLoading}>

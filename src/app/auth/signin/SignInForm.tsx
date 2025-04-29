@@ -85,6 +85,7 @@ export default function SignInForm() {
             type="password"
             autoComplete="current-password"
             disabled={isLoading}
+            isPassword // Add this prop to enable the toggle
             {...form.register("password")}
           />
         </FormField>
