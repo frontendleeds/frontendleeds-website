@@ -84,6 +84,19 @@ export function Navbar() {
             >
               Resources
             </Link>
+
+            <Link
+            href="/about"
+            className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+              isActive("/about")
+                ? "border-blue-500 text-gray-900 dark:text-white"
+                : "border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-white"
+            }`}
+          >
+           About
+          </Link>    
+            
+         
             {isAdmin && (
               <>
                 <Link
@@ -199,7 +212,7 @@ export function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Gallery
-            </Link>
+            </Link>          
             <Link
               href="/resources"
               className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
@@ -211,6 +224,20 @@ export function Navbar() {
             >
               Resources
             </Link>
+
+            
+            <Link
+            href="/about"
+            className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+              isActive("/about")
+                ? "border-blue-500 text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                : "border-transparent text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 hover:text-gray-700 dark:hover:text-white"
+            }`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Gallery
+          </Link>
+          
             {isAdmin && (
               <>
                 <Link
@@ -267,7 +294,7 @@ export function Navbar() {
                 </div>
               </div>
             ) : (
-              <div className="px-2 mt-3 space-y-1">
+               <div className="px-2 mt-3 space-y-1">
                 <Link
                   href="/auth/signin"
                   className="block px-3 py-2 text-base font-medium text-gray-700 rounded-md dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700"

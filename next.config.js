@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [new URL('https://secure.meetupstatic.com/photos/event/**'), new URL('https://cdn.leonardo.ai/users/**')],
+    remotePatterns: [
+      new URL('https://secure.meetupstatic.com/photos/event/**'), new URL('https://cdn.leonardo.ai/users/**'), new URL('https://placehold.co/**')],
   },
   // Webpack configuration to handle node modules
   webpack: (config, { isServer }) => {

@@ -130,7 +130,7 @@ export default function SignUpForm() {
              type="password"
              autoComplete="new-password"
              disabled={isLoading}
-             isPassword // Add this prop to enable the toggle
+             isPassword
              {...form.register("password")}
            />
          </FormField>

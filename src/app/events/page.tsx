@@ -79,21 +79,21 @@ export default async function EventsPage() {
 
   return (
     <>
-      <Hero 
-        title="Frontend Leeds Events"
-        subtitle="Join us at our upcoming events and connect with the community"
+      <Hero
+        title="Frontend Leeds – Developer Meetups & Events"
+        subtitle="Monthly meetups for frontend developers in Leeds. We host free community events focused on web development, JavaScript, CSS, and UI/UX design."
         backgroundImage="/frontend-leeds.jpg"
       />
-      
+
       <div className="container px-4 py-12 mx-auto">
         {/* Speaker Application CTA */}
         <div className="mb-12 overflow-hidden shadow-lg bg-gradient-to-r from-blue-600 to-indigo-700 dark:from-blue-700 dark:to-indigo-800 rounded-xl">
           <div className="flex flex-col items-center md:flex-row">
             <div className="flex-1 p-6 md:p-8">
-              <h2 className="mb-2 text-2xl font-bold text-white md:text-3xl">Want to Share Your Knowledge?</h2>
+              <h2 className="mb-2 text-2xl font-bold text-white md:text-3xl">Want to Speak or Sponsor?</h2>
               <p className="max-w-2xl mb-6 text-blue-100">
-                We&apos;re always looking for speakers to share their experiences and insights with our community. 
-                Whether you&apos;re a seasoned presenter or it&apos;s your first time, we&apos;d love to hear from you!
+                We are always looking for speakers to share their experiences and insights. We also welcome sponsors!
+                Whether you are a seasoned presenter or it is your first time speaking, we would love to hear from you.
               </p>
               <Link href="/events/speak" >
                 <Button className="flex items-center bg-blue-800 dark:bg-blue-800">
@@ -110,6 +110,17 @@ export default async function EventsPage() {
           </div>
         </div>
 
+        {/* What to Expect Section */}
+        <div className="p-6 mb-12 bg-white rounded-lg shadow-sm dark:bg-gray-800">
+          <h2 className="mb-4 text-2xl font-bold dark:text-white">What to Expect at Our Events</h2>
+          <ul className="space-y-2 text-gray-700 list-disc list-inside dark:text-gray-300">
+            <li>Hands-on coding sessions (sometimes!)</li>
+            <li>Networking with local developers</li>
+            <li>Free drinks and pizza 🍕</li>
+          </ul>
+        </div>
+
+
         {/* Upcoming Events */}
         <div className="mb-12">
           <div className="flex items-center justify-between mb-6">
@@ -121,16 +132,21 @@ export default async function EventsPage() {
 
           {events.length === 0 ? (
             <div className="py-12 text-center bg-white rounded-lg shadow-sm dark:bg-gray-800">
-              <h3 className="mb-2 text-xl font-semibold dark:text-white">No upcoming events</h3>
+              <h3 className="mb-2 text-xl font-semibold dark:text-white">Stay tuned for the next event announcement!</h3>
               <p className="mb-6 text-gray-500 dark:text-gray-400">
-                Check back later for new events or sign up to get notified.
+                To get notified about future events: {/* TODO: Add mailing list link/form */}
+                <a href="#" className="text-blue-600 underline dark:text-blue-400">Join our mailing list</a>.
               </p>
-              <Link href="/events/speak">
-                <Button>
-                  <FiMic className="mr-2" />
-                  Propose an Event
-                </Button>
-              </Link>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                We wll only email you when there is a new event, a reminder, or something truly relevant. No spam, ever.
+              </p>
+              {/* Keeping the Propose an Event button as it links to the speaker form */}
+               <Link href="/events/speak" className="inline-block mt-4">
+                 <Button>
+                   <FiMic className="mr-2" />
+                   Propose an Event/Talk
+                 </Button>
+               </Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

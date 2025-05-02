@@ -44,6 +44,13 @@ export function Footer() {
                   Gallery
                 </Link>
               </li>
+
+              <li>
+                <Link href="/privacy" className="text-gray-400 transition-colors hover:text-white">
+                 Privacy
+                </Link>
+              </li>
+
             </ul>
           </div>
           

@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { formatDate } from "@/lib/utils";
+import { formatDate, maskFullName } from "@/lib/utils";
 import { RSVPButton } from "@/components/events/RSVPButton";
 import { ShareEventButtons } from "@/components/events/ShareEventButtons";
 import { notFound } from "next/navigation";
@@ -335,7 +335,7 @@ export default async function EventPage(props: { params: Promise<{ id: string }>
                       {rsvp.user.name ? rsvp.user.name.charAt(0).toUpperCase() : 'A'}
                     </div>
                     <div className="text-sm font-medium sm:text-base dark:text-white">
-                      {rsvp.user.name || "Anonymous"}
+                      {maskFullName(rsvp?.user?.name || "Anonymous")}
                     </div>
                   </div>
                 ))}
