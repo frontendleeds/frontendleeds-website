@@ -1,8 +1,8 @@
 import React from 'react';
 
 const PrivacyPolicyPage = () => {
-  // TODO: Replace [Insert Date] and [insert your meetup location or city] with actual values
-  const lastUpdated = "[Insert Date]";
+
+  const lastUpdated = "23rd April 2025";
   const meetupLocation = "[insert your meetup location or city]";
 
   return (

@@ -235,7 +235,7 @@ export function Navbar() {
             }`}
             onClick={() => setMobileMenuOpen(false)}
           >
-            Gallery
+            About
           </Link>
           
             {isAdmin && (
