@@ -3,7 +3,7 @@ import React from 'react';
 const PrivacyPolicyPage = () => {
 
   const lastUpdated = "23rd April 2025";
-  const meetupLocation = "[insert your meetup location or city]";
+  const meetupLocation = "Leeds";
 
   return (
     <div className="container px-4 py-8 mx-auto">
