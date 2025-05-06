@@ -5,6 +5,7 @@ import { SessionProvider } from "@/components/providers/SessionProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import LinkedInInsightTag from "@/components/LinkedInInsightTag";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,12 +34,13 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <SessionProvider>
-            <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+            <div className="flex flex-col min-h-screen text-gray-900 bg-white dark:bg-gray-900 dark:text-gray-100">
               <Navbar />
               <main className="flex-1">
                 {children}
               </main>
               <Footer />
+              <LinkedInInsightTag />
             </div>
           </SessionProvider>
         </ThemeProvider>
