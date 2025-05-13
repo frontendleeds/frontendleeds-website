@@ -13,6 +13,7 @@ export function formatDate(date: Date): string {
     year: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
+    timeZone: 'Europe/London', // Explicitly set to UTC+1 (Europe/London)
   }).format(new Date(date));
 }
 
@@ -30,4 +31,3 @@ export function maskFullName(fullName:string) {
 
   return `${start}${'*'.repeat(maskedLength)}${end}`;
 }
-

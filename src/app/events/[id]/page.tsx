@@ -100,7 +100,13 @@ export default async function EventPage(props: { params: Promise<{ id: string }>
     take: 10,
   });
 
-  const isPast =  new Date() > new Date(event.endTime)
+  // Helper function to get current time in Europe/London timezone
+  const getLondonTime = () => {
+    const now = new Date();
+    return new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
+  };
+
+  const isPast = getLondonTime() > new Date(event.endTime)
   return (
     <>
       {/* Hero Banner */}

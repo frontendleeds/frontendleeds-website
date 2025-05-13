@@ -41,14 +41,29 @@ export function EnhancedEventCard({ event, attendeeCount }: EnhancedEventCardPro
   
   // Format the date and time
   const formattedDate = formatDate(event.startTime);
-  const startTime = new Date(event.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  const endTime = event.endTime ? new Date(event.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null;
+  const startTime = new Date(event.startTime).toLocaleTimeString('en-GB', { 
+    hour: '2-digit', 
+    minute: '2-digit',
+    timeZone: 'Europe/London' // Explicitly set to UTC+1 (Europe/London)
+  });
+  const endTime = event.endTime ? new Date(event.endTime).toLocaleTimeString('en-GB', { 
+    hour: '2-digit', 
+    minute: '2-digit',
+    timeZone: 'Europe/London' // Explicitly set to UTC+1 (Europe/London)
+  }) : null;
+  
+  // Helper function to get current time in Europe/London timezone
+  const getLondonTime = () => {
+    const now = new Date();
+    const londonTime = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
+    return londonTime.getTime();
+  };
   
   // Calculate if the event is happening soon (within the next 7 days)
-  const isUpcoming = new Date(event.startTime).getTime() - new Date().getTime() < 7 * 24 * 60 * 60 * 1000;
+  const isUpcoming = new Date(event.startTime).getTime() - getLondonTime() < 7 * 24 * 60 * 60 * 1000;
   
   // Calculate if the event has passed
-  const hasPassed = new Date(event.startTime).getTime() < new Date().getTime();
+  const hasPassed = new Date(event.startTime).getTime() < getLondonTime();
   
   // Calculate if the event is at capacity
   const isAtCapacity = event.capacity !== null && attendeeCount >= event.capacity;

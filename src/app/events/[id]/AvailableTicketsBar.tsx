@@ -59,7 +59,14 @@ function AvailableTicketsBar({
     }
 
 
-    const isPast = new Date() > new Date(eventEndTime)
+    // Helper function to get current time in Europe/London timezone
+    const getLondonTime = () => {
+      const now = new Date();
+      const londonTime = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
+      return londonTime;
+    };
+
+    const isPast = getLondonTime() > new Date(eventEndTime)
 
     return (
       <div className={`fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 z-50 md:hidden transition-all duration-300 ease-in-out ${isExpanded ? 'h-auto max-h-80' : 'h-auto max-h-24'}`}>
@@ -117,8 +124,16 @@ function AvailableTicketsBar({
                 <div>
                   <p className="text-gray-500 dark:text-gray-400">Time:</p>
                   <p className="font-medium text-gray-900 dark:text-white">
-                    {new Date(eventStartTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    {eventEndTime && ` - ${new Date(eventEndTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`}
+                    {new Date(eventStartTime).toLocaleTimeString('en-GB', { 
+                      hour: '2-digit', 
+                      minute: '2-digit',
+                      timeZone: 'Europe/London' 
+                    })}
+                    {eventEndTime && ` - ${new Date(eventEndTime).toLocaleTimeString('en-GB', { 
+                      hour: '2-digit', 
+                      minute: '2-digit',
+                      timeZone: 'Europe/London' 
+                    })}`}
                   </p>
                 </div>
                 <div className="col-span-2">

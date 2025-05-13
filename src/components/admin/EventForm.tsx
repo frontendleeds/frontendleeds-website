@@ -39,6 +39,29 @@ export function EventForm({ event, isEditing = false }: EventFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Helper function to format date for datetime-local input in Europe/London timezone
+  const formatDateForInput = (date: Date | null | undefined): string => {
+    if (!date) return "";
+    
+    // Format the date in Europe/London timezone
+    const formatter = new Intl.DateTimeFormat('en-GB', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+      timeZone: 'Europe/London'
+    });
+    
+    // Convert "DD/MM/YYYY, HH:MM:SS" to "YYYY-MM-DDTHH:MM"
+    const formattedDate = formatter.format(new Date(date))
+      .replace(/(\d+)\/(\d+)\/(\d+), (\d+):(\d+):(\d+)/, '$3-$2-$1T$4:$5');
+    
+    return formattedDate;
+  };
+
   const form = useForm<EventFormValues>({
     resolver: zodResolver(eventSchema),
     defaultValues: {
@@ -46,12 +69,8 @@ export function EventForm({ event, isEditing = false }: EventFormProps) {
       description: event?.description || "",
       content: event?.content || "",
       location: event?.location || "",
-      startTime: event?.startTime
-        ? new Date(event.startTime).toISOString().slice(0, 16)
-        : "",
-      endTime: event?.endTime
-        ? new Date(event.endTime).toISOString().slice(0, 16)
-        : "",
+      startTime: formatDateForInput(event?.startTime),
+      endTime: formatDateForInput(event?.endTime),
       imageUrl: event?.imageUrl || "",
       capacity: event?.capacity?.toString() || "",
       published: event?.published || false,
@@ -68,6 +87,28 @@ export function EventForm({ event, isEditing = false }: EventFormProps) {
         : "/api/events";
       const method = isEditing ? "PUT" : "POST";
 
+      // Helper function to convert local datetime to Europe/London timezone
+      const convertToLondonTime = (dateString: string) => {
+        // Parse the local datetime string
+        const localDate = new Date(dateString);
+        
+        // Format the date in a way that it's interpreted as Europe/London time
+        // This creates a string like "2025-05-13T15:00:00" and explicitly states it's in Europe/London timezone
+        const londonDateString = new Intl.DateTimeFormat('en-GB', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+          timeZone: 'Europe/London'
+        }).format(localDate).replace(/(\d+)\/(\d+)\/(\d+), (\d+):(\d+):(\d+)/, '$3-$2-$1T$4:$5:$6');
+        
+        // Create a new Date object from this string and convert to ISO
+        return new Date(londonDateString).toISOString();
+      };
+
       const response = await fetch(endpoint, {
         method,
         headers: {
@@ -75,8 +116,8 @@ export function EventForm({ event, isEditing = false }: EventFormProps) {
         },
         body: JSON.stringify({
           ...data,
-          startTime: new Date(data.startTime).toISOString(),
-          endTime: new Date(data.endTime).toISOString(),
+          startTime: convertToLondonTime(data.startTime),
+          endTime: convertToLondonTime(data.endTime),
         }),
       });
 

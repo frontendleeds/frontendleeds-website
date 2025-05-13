@@ -38,8 +38,15 @@ export function EventCard({ event, attendeeCount }: EventCardProps) {
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
+  // Helper function to get current time in Europe/London timezone
+  const getLondonTime = () => {
+    const now = new Date();
+    const londonTime = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
+    return londonTime.getTime();
+  };
+
   // Calculate if the event has passed
-  const hasPassed = new Date(event.startTime).getTime() < new Date().getTime();
+  const hasPassed = new Date(event.startTime).getTime() < getLondonTime();
 
   return (
     <div className="relative overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 group">
